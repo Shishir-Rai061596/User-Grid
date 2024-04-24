@@ -37,7 +37,7 @@ const UserView = () => {
         <div className="error-container">
           <p>Error: {error}</p>
         </div>
-      ) : (
+      ) : usersList.length ? (
         <div className="user-table">
           <table>
             <thead>
@@ -81,6 +81,8 @@ const UserView = () => {
             </tbody>
           </table>
         </div>
+      ) : (
+        <p>No users found</p>
       )}
     </div>
   );
