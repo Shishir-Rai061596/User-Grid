@@ -40,11 +40,7 @@ function* updateLocation({ payload }: any) {
   try {
     const { id } = payload;
 
-    yield call(
-      axios.put,
-      `https://660160fd87c91a11641ab523.mockapi.io/users/${id}`,
-      payload
-    );
+    yield call(axios.put, `${GET_USERS}/${id}`, payload);
   } catch (error) {
     console.log(error);
   }

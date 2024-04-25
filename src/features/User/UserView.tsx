@@ -9,7 +9,6 @@ import { RootState } from "../../interfaces";
 import LoaderIcon from "../../Components/LoaderIcon";
 import { USERLIST_DELETE, USERLIST_LOCATION_UPDATE } from "./UserSlice";
 import { LOCATIONS } from "../../constants";
-import axios from "axios";
 
 const UserView = () => {
   const {
