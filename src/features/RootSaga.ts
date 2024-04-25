@@ -1,7 +1,11 @@
 import { all } from "redux-saga/effects";
-import { userListSaga, userDeleteSaga } from "./User/UserSaga";
+import {
+  userListSaga,
+  userDeleteSaga,
+  userLocationUpdateSage,
+} from "./User/UserSaga";
 function* rootSaga() {
-  yield all([userListSaga(), userDeleteSaga()]);
+  yield all([userListSaga(), userDeleteSaga(), userLocationUpdateSage()]);
 }
 
 export default rootSaga;

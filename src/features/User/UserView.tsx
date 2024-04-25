@@ -1,10 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { USERLIST_FETCH_REQUEST, USERLIST_DELETE_REQUEST } from "./UserActions";
+import {
+  USERLIST_FETCH_REQUEST,
+  USERLIST_DELETE_REQUEST,
+  USERLIST_LOCATION_UPDATE_REQUEST,
+} from "./UserActions";
 import { RootState } from "../../interfaces";
 import LoaderIcon from "../../Components/LoaderIcon";
 import { USERLIST_DELETE, USERLIST_LOCATION_UPDATE } from "./UserSlice";
 import { LOCATIONS } from "../../constants";
+import axios from "axios";
 
 const UserView = () => {
   const {
@@ -24,11 +29,12 @@ const UserView = () => {
   };
 
   const handleLocationChange = (id: string, newLocation: string) => {
-    // dispatch({ type: USERLIST_DELETE_REQUEST, payload: { id, newLocation } });
-    //axios.put(
-    // `https://660160fd87c91a11641ab523.mockapi.io/users/${payload.id}`,
-    //payload
-    //);
+    const newPayload = usersList.find(user => user.id === id);
+
+    dispatch({
+      type: USERLIST_LOCATION_UPDATE_REQUEST,
+      payload: { ...newPayload, location: newLocation },
+    });
     dispatch(USERLIST_LOCATION_UPDATE({ id, newLocation }));
   };
 
@@ -53,7 +59,6 @@ const UserView = () => {
                 <th>Creation Date</th>
                 <th>Location</th>
                 <th>Action</th>
-                <th>remove</th>
               </tr>
             </thead>
             <tbody>
@@ -81,7 +86,6 @@ const UserView = () => {
                       Delete
                     </button>
                   </td>
-                  <td>{user.id}</td>
                 </tr>
               ))}
             </tbody>

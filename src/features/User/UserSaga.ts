@@ -1,7 +1,11 @@
 import { takeLatest, put, call } from "redux-saga/effects";
 import axios, { AxiosResponse } from "axios";
 import { GET_USERS } from "../../constants";
-import { USERLIST_FETCH_REQUEST, USERLIST_DELETE_REQUEST } from "./UserActions";
+import {
+  USERLIST_FETCH_REQUEST,
+  USERLIST_DELETE_REQUEST,
+  USERLIST_LOCATION_UPDATE_REQUEST,
+} from "./UserActions";
 
 import {
   USERLIST_FETCH_REQUEST_LOADING,
@@ -32,10 +36,28 @@ function* deleteUser({ payload }: any) {
   }
 }
 
+function* updateLocation({ payload }: any) {
+  try {
+    const { id } = payload;
+
+    yield call(
+      axios.put,
+      `https://660160fd87c91a11641ab523.mockapi.io/users/${id}`,
+      payload
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* userListSaga() {
   yield takeLatest(USERLIST_FETCH_REQUEST, getUsers);
 }
 
 export function* userDeleteSaga() {
   yield takeLatest(USERLIST_DELETE_REQUEST, deleteUser);
+}
+
+export function* userLocationUpdateSage() {
+  yield takeLatest(USERLIST_LOCATION_UPDATE_REQUEST, updateLocation);
 }
