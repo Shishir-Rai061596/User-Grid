@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { USERLIST_FETCH_REQUEST } from "./UserActions";
+import { USERLIST_FETCH_REQUEST, USERLIST_DELETE_REQUEST } from "./UserActions";
 import { RootState } from "../../interfaces";
 import LoaderIcon from "../../Components/LoaderIcon";
 import { USERLIST_DELETE, USERLIST_LOCATION_UPDATE } from "./UserSlice";
@@ -19,10 +19,16 @@ const UserView = () => {
   }, [dispatch]);
 
   const handleDeleteUser = (id: string) => {
+    dispatch({ type: USERLIST_DELETE_REQUEST, payload: { id } });
     dispatch(USERLIST_DELETE(id));
   };
 
   const handleLocationChange = (id: string, newLocation: string) => {
+    // dispatch({ type: USERLIST_DELETE_REQUEST, payload: { id, newLocation } });
+    //axios.put(
+    // `https://660160fd87c91a11641ab523.mockapi.io/users/${payload.id}`,
+    //payload
+    //);
     dispatch(USERLIST_LOCATION_UPDATE({ id, newLocation }));
   };
 

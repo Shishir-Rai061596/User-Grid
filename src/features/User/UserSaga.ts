@@ -1,7 +1,7 @@
 import { takeLatest, put, call } from "redux-saga/effects";
 import axios, { AxiosResponse } from "axios";
 import { GET_USERS } from "../../constants";
-import { USERLIST_FETCH_REQUEST } from "./UserActions";
+import { USERLIST_FETCH_REQUEST, USERLIST_DELETE_REQUEST } from "./UserActions";
 
 import {
   USERLIST_FETCH_REQUEST_LOADING,
@@ -23,6 +23,19 @@ function* getUsers() {
   }
 }
 
+function* deleteUser({ payload }: any) {
+  try {
+    const { id } = payload;
+    yield call(axios.delete, `${GET_USERS}/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* userListSaga() {
   yield takeLatest(USERLIST_FETCH_REQUEST, getUsers);
+}
+
+export function* userDeleteSaga() {
+  yield takeLatest(USERLIST_DELETE_REQUEST, deleteUser);
 }
